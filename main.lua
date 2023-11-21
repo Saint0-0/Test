@@ -15,7 +15,7 @@ if writefile then
 		writefile("Exulus/Cache/Failed_Webhook_Post_Resort.txt", "")
 	end
 	if not isfile("Exulus/Cache/StagesCache.exu") then
-		writefile("Exulus/Cache/StagesCache.exu", "")
+		writefile("Exulus/Cache/StagesCache.exu", HttpService:JSONEncode(shared.SkillsTable))
 	end
 end
 local HttpService = game:GetService("HttpService")
