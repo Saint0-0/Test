@@ -1,5 +1,11 @@
 function InitialiseFarm()
--- bro update
+	
+	shared.SkillsTable = {
+		C = false,
+		E = false,
+		F = false,
+		R = false
+	}
 	-- Populating the shared.SkillsTable
 	shared.SkillsTable = HttpService:JSONDecode(readfile("Exulus/Cache/StagesCache.exu"))
 
@@ -58,5 +64,8 @@ function InitialiseFarm()
 	})
 
 end
+
+InitialiseFarm()
+
 
 InitialiseFarm()
