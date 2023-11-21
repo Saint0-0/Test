@@ -4,6 +4,7 @@ shared.SkillsTable = {
 		F = false,
 		R = false
 	}
+local HttpService = game:GetService("HttpService")
 
 if writefile then
 	if not isfolder("Exulus") then
@@ -25,7 +26,6 @@ if writefile then
 		writefile("Exulus/Cache/StagesCache.exu", HttpService:JSONEncode(shared.SkillsTable))
 	end
 end
-local HttpService = game:GetService("HttpService")
 
 function InitialiseFarm()
 	-- SAVE THE CHANGES BRUH
