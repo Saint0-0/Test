@@ -58,3 +58,5 @@ function InitialiseFarm()
 	})
 
 end
+
+InitialiseFarm()
