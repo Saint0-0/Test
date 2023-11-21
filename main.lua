@@ -18,6 +18,7 @@ if writefile then
 		writefile("Exulus/Cache/StagesCache.exu", "")
 	end
 end
+local HttpService = game:GetService("HttpService")
 
 function InitialiseFarm()
 	--bro
