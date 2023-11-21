@@ -1,3 +1,10 @@
+shared.SkillsTable = {
+		C = false,
+		E = false,
+		F = false,
+		R = false
+	}
+
 if writefile then
 	if not isfolder("Exulus") then
 		makefolder("Exulus")
@@ -22,12 +29,7 @@ local HttpService = game:GetService("HttpService")
 
 function InitialiseFarm()
 	-- SAVE THE CHANGES BRUH
-	shared.SkillsTable = {
-		C = false,
-		E = false,
-		F = false,
-		R = false
-	}
+
 	-- Populating the shared.SkillsTable
 	shared.SkillsTable = HttpService:JSONDecode(readfile("Exulus/Cache/StagesCache.exu"))
 
