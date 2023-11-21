@@ -4,6 +4,7 @@ shared.SkillsTable = {
 		F = false,
 		R = false
 	}
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local HttpService = game:GetService("HttpService")
 
 if writefile then
