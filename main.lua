@@ -44,7 +44,7 @@ function InitialiseFarm()
         Title = "Ξxulus",
         SubTitle = "by saint.dev",
         TabWidth = 160,
-        Size = UDim2.fromOffset(400, 400),
+        Size = UDim2.fromOffset(800, 50),
         Acrylic = true,
         Theme = "Dark"
     })
@@ -53,7 +53,7 @@ function InitialiseFarm()
 	local Options = Fluent.Options
 
 	-- Tabs
-	local Stats = Window:AddTab({Title = "Farm", Icon = "Car"})
+	local Stats = Window:AddTab({Title = "Stats", Icon = "Car"})
     local Farm = Window:AddTab({Title = "Farm", Icon = "Car"})
     local Config = Window:AddTab({Title = "Farm configuration", Icon = "Car"})
     local Modules = Window:AddTab({Title = "Weapon modules", Icon = "Car"})
@@ -66,9 +66,15 @@ function InitialiseFarm()
 	end
 
 	-- Stats tab
-	Stats:AddParagraph({
-		Title = "Hello world"
+	local StatsText = Stats:AddParagraph({
+		Title = "Your stats"
 	})
+	coroutine.wrap(function()
+		while task.wait() do
+			StatsText.Content = "Ping: "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString():gsub("%b()%s*", ""):gsub("^%s*(.-)%s*$", "%1"):sub(1, -5).."\nFPS: "..math.floor((2 % 1 >= 0.5 and math.ceil(2) or math.floor(2))/wait()).."\nMemory Usage: "..math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()).."\n\nPlayers: "..#game:GetService("Players"):GetPlayers()
+		end
+	end)()
+	
     -- Farm config tab
 	Config:AddParagraph({
 		Title = "Select the skills to use",
@@ -108,7 +114,7 @@ function InitialiseFarm()
 	})
 
 	-- Extras tab
-	Extras:AddDropdown({
+	Extras:AddDropdown("ThemeDrop", {
 		Title = "Pick a theme",
 		Values = {"Amethyst", "Aqua", "Dark", "Darker", "Light", "Rose"},
 		Multi = false,
