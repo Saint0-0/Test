@@ -66,6 +66,3 @@ function InitialiseFarm()
 end
 
 InitialiseFarm()
-
-
-InitialiseFarm()
