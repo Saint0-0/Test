@@ -21,8 +21,7 @@ end
 local HttpService = game:GetService("HttpService")
 
 function InitialiseFarm()
-	--init bruh
-	--omd
+	-- SAVE THE CHANGES BRUH
 	shared.SkillsTable = {
 		C = false,
 		E = false,
