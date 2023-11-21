@@ -3,13 +3,13 @@ shared.SkillsTable = {
 	E = false,
 	F = false,
 	R = false,
-	SelectedStage = shared.SkillsTable.Stage1,
 	Stage1 = false,
 	Stage2 = false,
 	Stage3 = false,
 	Stage4 = false,
 	Stage5 = false,
-	Stage6 = false
+	Stage6 = false,
+	SelectedStage = shared.SkillsTable.Stage1
 }
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local HttpService = game:GetService("HttpService")
