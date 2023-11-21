@@ -1,40 +1,3 @@
-shared.SkillsTable = {
-	C = false,
-	E = false,
-	F = false,
-	R = false,
-	Stage1 = false,
-	Stage2 = false,
-	Stage3 = false,
-	Stage4 = false,
-	Stage5 = false,
-	Stage6 = false,
-	SelectedStage = "Stage1"
-}
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local HttpService = game:GetService("HttpService")
-
-if writefile then
-	if not isfolder("Exulus") then
-		makefolder("Exulus")
-	end
-	if not isfolder("Exulus/Cache") then
-		makefolder("Exulus/Cache")
-	end
-	if not isfile("Exulus/Cache/ServerHopData.json") then
-		writefile("Exulus/Cache/ServerHopData.json", "")
-	end
-	if not isfile("Exulus/Cache/Webhook.exu") then
-		writefile("Exulus/Cache/Webhook.exu", "Tm8gV2ViaG9vayBTdG9yZWQu")
-	end
-	if not isfile("Exulus/Cache/Failed_Webhook_Post_Resort.txt") then
-		writefile("Exulus/Cache/Failed_Webhook_Post_Resort.txt", "")
-	end
-	if not isfile("Exulus/Cache/StagesCache.exu") then
-		writefile("Exulus/Cache/StagesCache.exu", HttpService:JSONEncode(shared.SkillsTable))
-	end
-end
-
 function InitialiseFarm()
 
 	-- Populating the shared.SkillsTable
@@ -44,7 +7,7 @@ function InitialiseFarm()
         Title = "Ξxulus",
         SubTitle = "by saint.dev",
         TabWidth = 160,
-        Size = UDim2.fromOffset(800, 50),
+        Size = UDim2.fromOffset(500, 100),
         Acrylic = true,
         Theme = "Dark"
     })
@@ -150,4 +113,3 @@ function InitialiseFarm()
 	Window:SelectTab(1)
 
 end
-InitialiseFarm()
