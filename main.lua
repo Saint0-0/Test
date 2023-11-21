@@ -1,3 +1,24 @@
+if writefile then
+	if not isfolder("Exulus") then
+		makefolder("Exulus")
+	end
+	if not isfolder("Exulus/Cache") then
+		makefolder("Exulus/Cache")
+	end
+	if not isfile("Exulus/Cache/ServerHopData.json") then
+		writefile("Exulus/Cache/ServerHopData.json", "")
+	end
+	if not isfile("Exulus/Cache/Webhook.exu") then
+		writefile("Exulus/Cache/Webhook.exu", "Tm8gV2ViaG9vayBTdG9yZWQu")
+	end
+	if not isfile("Exulus/Cache/Failed_Webhook_Post_Resort.txt") then
+		writefile("Exulus/Cache/Failed_Webhook_Post_Resort.txt", "")
+	end
+	if not isfile("Exulus/Cache/StagesCache.exu") then
+		writefile("Exulus/Cache/StagesCache.exu", "")
+	end
+end
+
 function InitialiseFarm()
 	--bro
 	shared.SkillsTable = {
