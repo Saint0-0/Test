@@ -66,16 +66,18 @@ function InitialiseFarm()
 	end
 
 	-- Stats tab
-	local StatsText = Stats:CreateParagraph({
-		Title = "Your stats",
-		Content = "Loading"
-	})
+	Stats:CreateLabel("Your stats:")
+	local PingL = Stats:CreateLabel("...")
+	local FpsL = Stats:CreateLabel("...")
+	local MemoryL = Stats:CreateLabel("...")
+	local PlayersL = Stats:CreateLabel("...")
+
 	coroutine.wrap(function()
 		while task.wait() do
-			StatsText:Set({
-				Title = "Your stats",
-				Content = "Ping: "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString():gsub("%b()%s*", ""):gsub("^%s*(.-)%s*$", "%1"):sub(1, -5).."\nFPS: "..math.floor((2 % 1 >= 0.5 and math.ceil(2) or math.floor(2))/wait()).."\nMemory Usage: "..math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()).."\n\nPlayers: "..#game:GetService("Players"):GetPlayers()
-			})
+			PingL:Set("Ping: "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString():gsub("%b()%s*", ""):gsub("^%s*(.-)%s*$", "%1"):sub(1, -5))
+			FpsL:Set("FPS: "..math.floor((2 % 1 >= 0.5 and math.ceil(2) or math.floor(2))/wait()).."")
+			MemoryL:Set("Memory Usage: "..math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()).."")
+			PlayersL:Set("Players: "..#game:GetService("Players"):GetPlayers())
 		end
 	end)()
 	
