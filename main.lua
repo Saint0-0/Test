@@ -11,7 +11,7 @@ shared.SkillsTable = {
 	Stage6 = false,
 	SelectedStage = "Stage1"
 }
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local HttpService = game:GetService("HttpService")
 
 if writefile then
@@ -40,24 +40,24 @@ function InitialiseFarm()
 	-- Populating the shared.SkillsTable
 	shared.SkillsTable = HttpService:JSONDecode(readfile("Exulus/Cache/StagesCache.exu"))
 
-    local Window = Fluent:CreateWindow({
-        Title = "Ξxulus",
-        SubTitle = "by saint.dev",
-        TabWidth = 160,
-        Size = UDim2.fromOffset(500, 100),
-        Acrylic = true,
-        Theme = "Dark"
+    local Window = Rayfield:CreateWindow({
+        Name = "Ξxulus",
+        LoadingTitle = "Ξxulus",
+		LoadingSubtitle = "by saint.dev",
+		ConfigurationSaving = {
+			Enabled = false,
+		}
     })
 
 	--Options
-	local Options = Fluent.Options
+	local Options = Rayfield.Options
 
 	-- Tabs
-	local Stats = Window:AddTab({Title = "Stats", Icon = "Car"})
-    local Farm = Window:AddTab({Title = "Farm", Icon = "Car"})
-    local Config = Window:AddTab({Title = "Farm configuration", Icon = "Car"})
-    local Modules = Window:AddTab({Title = "Weapon modules", Icon = "Car"})
-	local Extras = Window:AddTab({Title = "Extras", Icon = "Car"})
+	local Stats = Window:CreateTab("Stats", "Car")
+    local Farm = Window:CreateTab("Farm", "Car")
+    local Config = Window:CreateTab("Farm configuration", "Car")
+    local Modules = Window:CreateTab("Weapon modules", "Car")
+	local Extras = Window:CreateTab("Extras", "Car")
 
 	-- Functions
 	local function SaveData(Data)
@@ -66,88 +66,97 @@ function InitialiseFarm()
 	end
 
 	-- Stats tab
-	local StatsText = Stats:AddParagraph({
-		Title = "Your stats"
+	local StatsText = Stats:CreateParagraph({
+		Title = "Your stats",
+		Content = "Loading"
 	})
 	coroutine.wrap(function()
 		while task.wait() do
-			StatsText.Content = "Ping: "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString():gsub("%b()%s*", ""):gsub("^%s*(.-)%s*$", "%1"):sub(1, -5).."\nFPS: "..math.floor((2 % 1 >= 0.5 and math.ceil(2) or math.floor(2))/wait()).."\nMemory Usage: "..math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()).."\n\nPlayers: "..#game:GetService("Players"):GetPlayers()
+			StatsText:Set({
+				Title = "Your stats",
+				Content = "Ping: "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString():gsub("%b()%s*", ""):gsub("^%s*(.-)%s*$", "%1"):sub(1, -5).."\nFPS: "..math.floor((2 % 1 >= 0.5 and math.ceil(2) or math.floor(2))/wait()).."\nMemory Usage: "..math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()).."\n\nPlayers: "..#game:GetService("Players"):GetPlayers()
+			})
 		end
 	end)()
 	
     -- Farm config tab
-	Config:AddParagraph({
-		Title = "Select the skills to use",
-		Content = ""
-	})
-    Config:AddToggle("SkillC", {
-		Title = "Skill C",
-		Default = shared.SkillsTable.C,
+	Config:CreateLabel("Select the skill to use.")
+	
+    Config:CreateToggle({
+		Name = "Skill C",
+		CurrentValue = shared.SkillsTable.C,
 		Callback = function(Value)
 			shared.SkillsTable.C = Value
 			SaveData(shared.SkillsTable)
 		end
 	})
-	Config:AddToggle("SkillE", {
-		Title = "Skill E",
-		Default = shared.SkillsTable.E,
+	Config:CreateToggle({
+		Name = "Skill E",
+		CurrentValue = shared.SkillsTable.E,
 		Callback = function(Value)
 			shared.SkillsTable.E = Value
 			SaveData(shared.SkillsTable)
 		end
 	})
-	Config:AddToggle("SkillF", {
-		Title = "Skill F",
-		Default = shared.SkillsTable.F,
+	Config:CreateToggle({
+		Name = "Skill F",
+		CurrentValue = shared.SkillsTable.F,
 		Callback = function(Value)
 			shared.SkillsTable.F = Value
 			SaveData(shared.SkillsTable)
 		end
 	})
-	Config:AddToggle("SkillR", {
-		Title = "Skill R",
-		Default = shared.SkillsTable.R,
+	Config:CreateToggle({
+		Name = "Skill R",
+		CurrentValue = shared.SkillsTable.R,
 		Callback = function(Value)
 			shared.SkillsTable.R = Value
 			SaveData(shared.SkillsTable)
 		end
 	})
 
+	-- Stages
+	Config:CreateLabel("Select the stage to use.")
+
+	local selectedToggle = nil
+
+	for i = 1, 3 do
+		local stageName = "Stage"..i
+		local TempToggle = Config:CreateToggle({
+			Name = "Stage: "..i,
+			CurrentValue = shared.SkillsTable[stageName],
+			Callback = function(Value)
+				if Value then
+					if selectedToggle then
+						selectedToggle:Set(false)
+						shared.SkillsTable[selectedToggle.Name] = false
+					end
+					selectedToggle = TempToggle
+				end
+				shared.SkillsTable[stageName] = Value
+				SaveData(shared.SkillsTable)
+			end
+		})
+
+		-- Initialize selectedToggle if the stage is already selected
+		if shared.SkillsTable[stageName] then
+			selectedToggle = TempToggle
+		end
+	end
+
 	-- Extras tab
 	Extras:AddDropdown("ThemeDrop", {
-		Title = "Pick a theme",
+		Name = "Pick a theme",
 		Values = {"Amethyst", "Aqua", "Dark", "Darker", "Light", "Rose"},
 		Multi = false,
 		Default = "Dark",
 		Callback = function(Choice)
-			Fluent:SetTheme(Choice)
+			print(Choice)
 		end
 	})
-	-- Stages
-	Config:AddParagraph({
-		Title = "Select the stage to use",
-		Content = ""
-	})
-
-	for i = 1, 3  do -- three is the amount of stages that a person could have, change it to a variable later
-		Config:AddToggle("Stage"..i{
-			Title = "Stage: "..i,
-			Default = false,
-			Callback = function(Value)
-				if Options["Stage"..i] == shared.SkillsTable.SelectedStage then
-					Options["Stage"..i]:SetValue(Value)
-					shared.SkillsTable["Stage"..i] = Value
-					SaveData(shared.SkillsTable)
-				else
-					Options["Stage"..i]:SetValue(false)
-					shared.SkillsTable["Stage"..i] = false
-					SaveData(shared.SkillsTable)
-				end
-			end
-		})
-	end
 
 	Window:SelectTab(1)
 
 end
+
 InitialiseFarm()
