@@ -145,15 +145,6 @@ function InitialiseFarm()
 	end
 
 	-- Extras tab
-	Extras:AddDropdown("ThemeDrop", {
-		Name = "Pick a theme",
-		Values = {"Amethyst", "Aqua", "Dark", "Darker", "Light", "Rose"},
-		Multi = false,
-		Default = "Dark",
-		Callback = function(Choice)
-			print(Choice)
-		end
-	})
 
 	Window:SelectTab(1)
 
